@@ -1,0 +1,36 @@
+create proc sp_CreateOrder
+(
+@employeID int,
+@customerID nchar(5)
+) 
+AS
+Begin 
+insert into Orders (EmployeeID,CustomerID) values(@employeID,@customerID)
+select SCOPE_IDENTITY()
+End
+
+-----------------
+create proc sp_ProducSend
+(
+  @orderID int,
+  @productID int,
+  @quantity smallint
+)
+AS
+BEGIN
+
+insert into [Order Details](OrderID,ProductID,Quantity)values(@orderID,@productID,@quantity)
+ END
+------
+Create proc sp_Destock
+(
+@orderCount int,
+@productID int
+)
+as
+begin
+update Products set UnitsInStock=UnitsInStock-@orderCount Where ProductID=@productID
+end
+
+
+
